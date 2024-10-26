@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Deployment</title>
+    <style>
+        body {
+            font-family: Lucida Console, Lucida Console;
+            margin: 20px;
+            background-color: #050b0e;
+            color: #dcdcdc;
+        }
+        #response {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #dcdcdc;
+        }
+        button {
+            padding: 8px 16px;
+            margin-top: 10px;
+            background-color: #132632;
+            color: #acb4db;
+            border-width: 1px;
+            border-color: #acb4db;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Weather Deployment System</h1>
+    <button onclick="getWeather()">Get Weather Condition</button>
+
+    <p id="weatherCondition"></p>
+
+    <div id="message">
+        <p>!!It's Important to remember that 2 people must remain in the pod at all times!!</p>
+        <ul>
+            <li>Jim is great in all weather, as long as it's not severe.</li>
+            <li>Charley loves the rain and enjoys heavy storms, but can't stay in the sun too long due to albinism.</li>
+            <li>Richard or 'Dick' refuses to go if it's too stormy. He always takes advantage of excellent weather.</li>
+        </ul>
+        <p>Based on the weather conditions, who should I deploy?:</p>
+        <select id="personSelect">
+            <option value="Jim">Jim</option>
+            <option value="Charley">Charley</option>
+            <option value="Richard">Richard</option>
+        </select>
+        <button onclick="getResponse()">Deploy</button>
+    </div>
+
+    <p id="response"></p>
+
+    <script>
+        let wc;
+
+        function getWeather() {
+            wc = Math.floor(Math.random() * 4) + 1;
+            const weatherPhrases = {
+                1: "'Excellent'",
+                2: "'Fair'",
+                3: "'Moderate!'",
+                4: "'Severe!!!'"
+            };
+            document.getElementById("weatherCondition").innerText = `Weather Condition: ${weatherPhrases[wc]}`;
+        }
+
+        function getResponse() {
+            const selectedPerson = document.getElementById("personSelect").value;
+            const responses = {
+                Jim: {
+                    1: "'Jim is happy.'",
+                    2: "'Jim is happy.'",
+                    3: "'Jim is distracted by the incoming weather.\nHe misses one of the screws to hold up the stands for the tower post. It topples over and kills him.'",
+                    4: "'Jim gets struck by lightning'"
+                },
+                Charley: {
+                    1: "'Charley now has severe sunburn. How could you do such a thing.'",
+                    2: "'Charley is unproductive as he takes shade underneath a black oak tree.'",
+                    3: "'Charley enjoys a good rain, but is eager to finish the project due to slippery surfaces.'",
+                    4: "'Charley is eager to see how the equipment will handle the weather.'"
+                },
+                Richard: {
+                    1: "'Richard, that sly sob. How much did he slip you?'",
+                    2: "'Richard, again?'",
+                    3: "'Richard refuses to go.'",
+                    4: "'The group agrees to throw Richard out. It's unanimous.'"
+                }
+            };
+
+            if (wc) {
+                document.getElementById("response").innerText = responses[selectedPerson][wc];
+            } else {
+                document.getElementById("response").innerText = "Please gather weather conditions first.";
+            }
+        }
+    </script>
+</body>
+</html>
